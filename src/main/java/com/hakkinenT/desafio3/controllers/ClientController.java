@@ -35,4 +35,12 @@ public class ClientController {
         Page<ClientDTO> response = service.findAll(pageable);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id, @RequestBody ClientDTO dto){
+        ClientDTO response = service.update(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+
 }
