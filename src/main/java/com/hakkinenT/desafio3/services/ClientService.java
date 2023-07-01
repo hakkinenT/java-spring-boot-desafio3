@@ -5,6 +5,8 @@ import com.hakkinenT.desafio3.entities.Client;
 import com.hakkinenT.desafio3.repositories.ClientRepository;
 import com.hakkinenT.desafio3.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,12 @@ public class ClientService {
         Client client = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Recurso não encontrado."));
         return new ClientDTO(client);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ClientDTO> findAll(Pageable pageable){
+        Page<Client> clients = repository.findAll(pageable);
+        return clients.map(client -> new ClientDTO(client));
     }
 
     @Transactional
