@@ -38,7 +38,7 @@ public class ClientController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable Long id, @Valid @RequestBody ClientDTO dto){
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO dto){
         ClientDTO response = service.update(id, dto);
         return ResponseEntity.ok(response);
     }
